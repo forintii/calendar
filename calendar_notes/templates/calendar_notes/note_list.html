@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Календарь заметок</title>
+    <!-- Подключение стилей FullCalendar -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.css" rel="stylesheet">
+    
+    <!-- Подключение jQuery (нужно для FullCalendar) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Подключение JavaScript FullCalendar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.2.0/fullcalendar.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style3.css' %}">
+   
+        
+    
+</head>
+<body>
+    <header class="container">
+        <a class="logo">My Planner!</a>
+    </header>
+    
+    <!-- Форма для добавления новой заметки -->
+    <!-- Кнопка для перехода на страницу добавления заметки -->
+    <a href="{% url 'add_note' %}">
+        <button class="add">Добавить заметку</button>
+    </a>
+    
+
+    <div id="calendar"></div> <!-- Здесь будет отображаться календарь -->
+
+    
+
+    <script>
+        $(document).ready(function() {
+    // Инициализация календаря
+    $('#calendar').fullCalendar({
+        events: [
+            {% for note in notes %}
+            {
+                title: '{{ note.title}}',
+                start: '{{ note.date|date:"Y-m-d" }}',  <!-- предполагается, что дата в формате 'YYYY-MM-DD' -->
+                description: '{{ note.description }}',
+                color: '{{ note.color }}',
+                id: '{{ note.id }}'  <!-- добавим ID заметки в данные события -->
+            },
+            {% endfor %}
+        ],
+        eventClick: function(event, jsEvent, view) {
+            // Открытие модального окна
+            $('#modal').fadeIn();
+
+            // Заполнение данных в модальном окне
+            $('#modalTitle').text(event.title);
+            $('#modalDescription').text(event.description);
+
+            // Динамическая подстановка URL для кнопок
+            $('#editBtn').attr('href', '{% url "edit_note" 0 %}'.replace("0", event.id));
+            $('#deleteBtn').attr('href', '{% url "delete_note" 0 %}'.replace("0", event.id));
+        }
+    });
+
+    // Закрытие модального окна
+    $('.close').on('click', function() {
+        $('#modal').fadeOut();
+    });
+});
+
+    </script>
+    <!-- Модальное окно для редактирования и удаления -->
+    <div id="modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalDescription"></p>
+            <a href="" id="editBtn">
+                <button class="btn btn-primary">Редактировать</button>
+            </a>
+            <a href="" id="deleteBtn">
+                <button class="btn btn-danger">Удалить</button>
+            </a>
+        </div>
+    </div>
+
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Выйти</button>
+    </form>
+    
+
+</body>
+</html>

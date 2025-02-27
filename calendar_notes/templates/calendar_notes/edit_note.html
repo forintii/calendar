@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Редактировать заметку</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style4.css' %}">
+</head>
+<body>
+    <h1>Редактировать заметку</h1>
+
+    <!-- Форма для редактирования заметки -->
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Выводим форму -->
+        <button type="submit">Сохранить изменения</button>
+    </form>
+
+    <br>
+    <a href="{% url 'note_list' %}">Вернуться к календарю</a>  <!-- Ссылка для возврата на страницу календаря -->
+</body>
+</html>

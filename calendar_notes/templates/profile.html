@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MY PLANNER! АВТОРИЗАЦИЯ</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+    <header class="container">
+        <a class="logo">My Planner!</a>
+    </header>
+    {% load widget_tweaks %}
+    <div class="wrapper1">
+        <div class="container1">
+            <h1>Добро пожаловать, {{ user.username }}!</h1>
+            <br><br><br><br>
+            <!-- Добавляем кнопку для перехода на страницу регистрации -->
+            <a href="{% url 'note_list' %}"><button type="button">Пpодолжить</button></a>
+        </div>
+    </div>
+
+    
+</html>
