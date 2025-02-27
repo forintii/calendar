@@ -32,6 +32,9 @@ ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
 ]
+CSRF_TRUSTED_ORIGINS = [
+    "https://calendar-production-00f8.up.railway.app",
+]
 
 
 LOGIN_REDIRECT_URL = '/accounts/profile/'
