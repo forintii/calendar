@@ -27,7 +27,12 @@ SECRET_KEY = 'django-insecure-23*vv-ar$7q118!th=q$vi83@*bxq^fd&9valg6o0ltwl9w2_i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "calendar-production-00f8.up.railway.app",  # Railway-домен
+    "localhost",
+    "127.0.0.1",
+]
+
 
 LOGIN_REDIRECT_URL = '/accounts/profile/'
 
