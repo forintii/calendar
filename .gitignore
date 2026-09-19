@@ -1,0 +1,11 @@
+# Окружение
+.env
+venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# База данных (если не хотите хранить локальную БД в Git)
+db.sqlite3
